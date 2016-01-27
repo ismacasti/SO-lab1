@@ -12,6 +12,8 @@ class Laboratorio
 {
     public static void main(String arg[])
     {
+        //Creamos tres hilos y los lanzamos
+        //Ni Thread.join() ni nada, hacen loop infinito
         Pais thread1 = new Pais();
         Hora thread2 = new Hora();
         Mates thread3 = new Mates();
@@ -25,13 +27,16 @@ class Pais extends Thread
 {
     public void run()
     {
-        while(true){
+        //los hilos están en un loop infinito
+        while(true){ 
             Random rng = new Random();
+            //esperan un número aleatorio de milisegundos entre 0 y 1000 (1 segundo)
             try
             {
                 Thread.sleep(rng.nextInt(1000));
             }
             catch(InterruptedException e){
+                //odio java
             }
             
             String palabra = "Finland";
@@ -54,11 +59,8 @@ class Hora extends Thread
             }
             catch(InterruptedException e){
             }
-            
+            //horas:minutos:segundos:milisegundos
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss:SS");
-
-            
-            //get current date time with Calendar()
             Calendar cal = Calendar.getInstance();
             System.out.println(dateFormat.format(cal.getTime()));
         }
@@ -79,6 +81,7 @@ class Mates extends Thread
             i++;
             try
             {
+                //este lo ponemos que como mucho espere 500 milisegundos, porque no?
                 Thread.sleep(rng.nextInt(500));
             }
             catch(InterruptedException e){
